@@ -10,7 +10,6 @@ function linkedList () {
             const newNode = node(value);
             if (this.length === 0) {
                 this.headNode = newNode;
-                // can be deleted
                 this.tailNode = newNode;
             } else {
                 this.tailNode.link = newNode;
@@ -22,7 +21,6 @@ function linkedList () {
             const newNode = node(value);
             if (this.length === 0) {
                 this.headNode = newNode;
-                // can be deleted
                 this.tailNode = newNode;
             } else {
                 newNode.link = this.headNode;
@@ -105,6 +103,36 @@ function linkedList () {
             }
             result += 'null';
             return result;
+        },
+        removeAt: function (index) {
+            if (index < 0 || index >= this.length) {
+                return null; // Return null if index is out of bounds
+            }
+        
+            let removedNode;
+        
+            if (index === 0) {
+                // Remove the head node
+                removedNode = this.headNode;
+                this.headNode = this.headNode.link;
+        
+                if (this.length === 1) {
+                    // If the list had only one node, update the tail node
+                    this.tailNode = null;
+                }
+            } else {
+                let previousNode = this.at(index - 1);
+        
+                removedNode = previousNode.link;
+                previousNode.link = removedNode.link;
+        
+                if (index === this.length - 1) {
+                    // If the removed node is the tail node, update the tail node
+                    this.tailNode = previousNode;
+                }
+            }
+        
+            this.length--;
         }
 
         }
